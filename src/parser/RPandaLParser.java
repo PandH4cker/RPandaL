@@ -29,7 +29,7 @@ public class RPandaLParser {
             if (NumHelper.isNumeric(input)) this.stack.stack(new Number(Double.valueOf(input)));
             if (NumHelper.isVector(input)) this.stack.stack(Vector.fromStr(input));
             if (NumHelper.isComplex(input)) {
-                Complex.fromStr(input);
+                System.out.println(Complex.fromStr(input));
             }
             System.out.println(this.stack);
         }
