@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 public class Complex implements ObjEmp {
@@ -19,7 +21,43 @@ public class Complex implements ObjEmp {
     }
 
     public static Complex fromStr(String str) {
-        List<String> splittedString = new LinkedList<>(Arrays.asList(str.split("")));
+        Pattern firstPattern = Pattern.compile("[-+]?(\\d*\\.?\\d+)?i");
+        Pattern secondPattern = Pattern.compile("([+-]?\\d*\\.?\\d+)[ ]*?([+-])[ ]*?((\\d*\\.?\\d+)?i)");
+        Matcher firstMatcher = firstPattern.matcher(str);
+        Matcher secondMatcher = secondPattern.matcher(str);
+        if(secondMatcher.find()) {
+            if (secondMatcher.group(3).equals("i")) return new Complex(
+                    Double.valueOf(secondMatcher.group(1)),
+                    Double.valueOf(secondMatcher.group(2) + secondMatcher.group(3).replace("i", "1"))
+            );
+            return new Complex(
+                    Double.valueOf(secondMatcher.group(1)),
+                    Double.valueOf(secondMatcher.group(2) + secondMatcher.group(3).replace("i", ""))
+            );
+        }
+        else if (firstMatcher.find()) {
+            if (firstMatcher.group(0).length() == 1)
+                return new Complex(0.0, 1.0);
+            else if (firstMatcher.group(0).length() == 2) {
+                switch(firstMatcher.group(0).charAt(0)) {
+                    case '+' -> {
+                        return new Complex(0.0, 1.0);
+                    }
+                    case '-' -> {
+                        return new Complex(0.0, -1.0);
+                    }
+                }
+                return new Complex(0.0, Double.parseDouble(String.valueOf(firstMatcher.group(0).charAt(0))));
+            }
+            else if (firstMatcher.group(0).length() >= 3)
+                return new Complex(0.0, Double.parseDouble(firstMatcher.group(0).substring(0, firstMatcher.group(0).length() - 1)));
+            /*return new Complex(
+                    0.0,
+                    Double.parseDouble(firstMatcher.group(0).substring(0, firstMatcher.group(0).length() - 1))
+            );*/
+        }
+        return null;
+        /*List<String> splittedString = new LinkedList<>(Arrays.asList(str.split("")));
         splittedString.removeAll(Collections.singleton(" "));
         List<String> newList = new LinkedList<>();
         IntStream.range(0, splittedString.size()).forEachOrdered(i -> {
@@ -37,7 +75,7 @@ public class Complex implements ObjEmp {
                 Double.valueOf(newList.get(0)),
                 Double.valueOf(newList.get(1).substring(0, newList.get(1).length() - 1))
         );
-        else return null;
+        else return null;*/
     }
 
     @Override

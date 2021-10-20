@@ -10,6 +10,6 @@ public final class NumHelper {
     }
 
     public static boolean isComplex(String str) {
-        return str.matches("(-?\\d*\\.?\\d+)?i|((-?\\d*\\.?\\d+)[ ]*?[+-][ ]*?(-?\\d*\\.?\\d+)i)");
+        return str.matches("[-+]?(\\d*\\.?\\d+)?i") || str.matches("([+-]?\\d*\\.?\\d+)[ ]*?([+-])[ ]*?((\\d*\\.?\\d+)?i)");
     }
 }
