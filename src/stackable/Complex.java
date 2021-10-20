@@ -51,31 +51,8 @@ public class Complex implements ObjEmp {
             }
             else if (firstMatcher.group(0).length() >= 3)
                 return new Complex(0.0, Double.parseDouble(firstMatcher.group(0).substring(0, firstMatcher.group(0).length() - 1)));
-            /*return new Complex(
-                    0.0,
-                    Double.parseDouble(firstMatcher.group(0).substring(0, firstMatcher.group(0).length() - 1))
-            );*/
         }
         return null;
-        /*List<String> splittedString = new LinkedList<>(Arrays.asList(str.split("")));
-        splittedString.removeAll(Collections.singleton(" "));
-        List<String> newList = new LinkedList<>();
-        IntStream.range(0, splittedString.size()).forEachOrdered(i -> {
-            switch (splittedString.get(i)) {
-                case "+", "-"  -> newList.add(splittedString.get(i) + splittedString.get(i + 1));
-                case String s && (s.equals("i") && i > 0) -> newList.set(newList.size() - 1, newList.get(newList.size() - 1) + "i");
-                case String s && i > 0 && Arrays.asList("+", "-").contains(splittedString.get(i - 1)) -> {}
-                default -> newList.add(splittedString.get(i));
-            }
-        });
-        System.out.println(newList);
-        System.out.println(Double.valueOf(newList.get(0)));
-        if (newList.size() == 1) return new Complex(0.0, Double.valueOf(newList.get(0).substring(0, newList.get(0).length() - 1)));
-        else if (newList.size() == 2) return new Complex(
-                Double.valueOf(newList.get(0)),
-                Double.valueOf(newList.get(1).substring(0, newList.get(1).length() - 1))
-        );
-        else return null;*/
     }
 
     @Override
