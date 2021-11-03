@@ -22,6 +22,8 @@ public class Number implements ObjEmp {
     public ObjEmp add(ObjEmp o) throws IncorrectOperation {
         if (o instanceof Number)
             return new Number(this.value + ((Number) o).getValue());
+        if (o instanceof Complex)
+            return o.add(this);
         throw new IncorrectOperation("");
     }
 
@@ -29,6 +31,8 @@ public class Number implements ObjEmp {
     public ObjEmp sub(ObjEmp o) throws IncorrectOperation {
         if (o instanceof Number)
             return new Number(this.value - ((Number) o).getValue());
+        if (o instanceof Complex)
+            return o.sub(this);
         throw new IncorrectOperation("");
     }
 
